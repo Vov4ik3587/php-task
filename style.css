@@ -1,0 +1,77 @@
+.list-cards {
+    display: flex;
+    margin: 0 -5px;
+    flex-direction: row;
+    background-color: #eeeeee;
+    justify-content: space-between;
+    padding: 6px;
+}
+
+.card {
+    display: flex;
+    /* flex: 1 1 auto; */
+    margin: 0 5px;
+    position: relative;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 150px;
+    height: 200px;
+    background-color: white;
+    border-radius: 2px;
+}
+
+.big-number {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: inherit;
+    font-size: 60pt;
+}
+
+.card-three .big-number {
+    background-color: #269f5d;
+    color: white;
+}
+
+.card-one .big-number{
+    background-color: #65c2dc;
+    color: #333333;
+}
+
+.card-two .big-number{
+    background-color: #eebc40;
+    color: #fefdfd;
+}
+
+.caption {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+    height: 25%;
+    box-shadow: 0 1px 2px 1px #bebebe ;
+}
+
+.card > a {
+    text-decoration: none;
+}
+
+.btn {
+    height: 20px;
+    width: 20px;
+    text-align: center;
+    border: none;
+    padding: 0;
+    background-color: #4d88ef;
+    color: #ffffff;
+    display: block;
+    border-radius: 50%;
+
+    position: absolute;
+    z-index: 1;
+    rotate: -45deg;
+    top: 70%;
+    left: 80%;
+
+    box-shadow: 0 0 1px 0 #bebebe;
+}
