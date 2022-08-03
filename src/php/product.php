@@ -1,20 +1,25 @@
 <?php
+
+// Переменные из url
 $cat_id = $_GET["cat_id"];
 $id = $_GET["id"];
 $page = $_GET["pg"];
 
+// Запрос для проверки соответствия товара его категории
 $check = $pdo->prepare('
     SELECT *
     FROM section_good
     WHERE section_good.id_section = ?
     AND section_good.id_good = ? 
 ');
-
 $check->execute(array($cat_id, $id));
 $ok_or_not = $check->fetch();
 
-//var_dump($ok_or_not);
 
+// Условие для отрисовки нужной страницы:
+// 1 усл - список категорий
+// 2 усл - список товаров категории
+// 3 усл - конкретный товар
 if (is_null($id) && is_null($cat_id)) { ?>
     <h1>Каталог</h1>
     <div class="list-cards">
@@ -73,7 +78,9 @@ if (is_null($id) && is_null($cat_id)) { ?>
         </a>
     </div>
 
-    <?php $stmt = $pdo->prepare('
+    <?php
+    // Достаем товары из категории
+    $stmt = $pdo->prepare('
         SELECT goods.name_good,
                goods.id_good,
 	        picture.path_picture AS path, 
@@ -87,6 +94,7 @@ if (is_null($id) && is_null($cat_id)) { ?>
         AND section_good.id_section = ?
         LIMIT ?, ?
     ');
+    // В зависимости от страницы выводим нужное количество товаров
     $stmt->execute(array($cat_id, (12 * ($page - 1)), 12 * $page));
     ?>
     <div class="list-cards">
@@ -104,6 +112,7 @@ if (is_null($id) && is_null($cat_id)) { ?>
         <?php } ?>
     </div>
 
+    <!-- навигация между страницами товаров -->
     <nav class="page-nav">
         <?php
         $count_page = (int)($count_good / 12) + 1;
@@ -136,6 +145,7 @@ if (is_null($id) && is_null($cat_id)) { ?>
     $stmt->execute(array($id));
     $row = $stmt->fetch();
 
+    // получаем данные для списка категорий
     $stmt_cat = $pdo->prepare('
         SELECT sections.name_section, section_good.id_section
         FROM sections
@@ -145,6 +155,7 @@ if (is_null($id) && is_null($cat_id)) { ?>
     ');
     $stmt_cat->execute(array($id));
 
+    // получаем данные картинок
     $stmt_pic = $pdo->prepare('
         SELECT picture.path_picture AS path, 
                picture.attribute_alt AS alt
