@@ -2,6 +2,19 @@
 $cat_id = $_GET["cat_id"];
 $id = $_GET["id"];
 $page = $_GET["pg"];
+
+$check = $pdo->prepare('
+    SELECT *
+    FROM section_good
+    WHERE section_good.id_section = ?
+    AND section_good.id_good = ? 
+');
+
+$check->execute(array($cat_id, $id));
+$ok_or_not = $check->fetch();
+
+//var_dump($ok_or_not);
+
 if (is_null($id) && is_null($cat_id)) { ?>
     <h1>Каталог</h1>
     <div class="list-cards">
@@ -32,7 +45,7 @@ if (is_null($id) && is_null($cat_id)) { ?>
             <?php }
         } ?>
     </div>
-<?php } elseif ($cat_id && is_null($id)) {
+<?php } elseif ($cat_id && $page && is_null($id)) {
     $stmt = $pdo->prepare('
         SELECT s.name_section, s_parent.name_section AS parent_section,
         (SELECT COUNT(*) 
@@ -102,7 +115,7 @@ if (is_null($id) && is_null($cat_id)) { ?>
     </nav>
 
 
-<?php } elseif ($id) {
+<?php } elseif ($ok_or_not && $id && is_null($page)) {
     // Достаем информацию товара
     $stmt = $pdo->prepare('
         SELECT
@@ -224,4 +237,6 @@ if (is_null($id) && is_null($cat_id)) { ?>
             </div>
         </div>
     </div>
-<?php } ?>
+<?php } else {
+    require_once "./src/php/404.php";
+} ?>
