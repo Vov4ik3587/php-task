@@ -158,11 +158,11 @@ if (is_null($id) && is_null($cat_id)) { ?>
                 <div class="header">
                     <div class="product__title"><?php echo $row['name'] ?></div>
                     <?php if (is_null($cat_id)) { ?>
-                        <a href="http://localhost/?cat_id=<?php echo $row['id_main_section'] ?> ">
+                        <a href="http://localhost/?cat_id=<?php echo $row['id_main_section'] ?>&pg=1">
                             <button class="btn-back">Назад</button>
                         </a>
                     <?php } else { ?>
-                        <a href="http://localhost/?cat_id=<?php echo $cat_id ?>">
+                        <a href="http://localhost/?cat_id=<?php echo $cat_id ?>&pg=1">
                             <button class="btn-back">Назад</button>
                         </a>
                     <?php } ?>
