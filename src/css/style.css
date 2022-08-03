@@ -2,23 +2,36 @@
     display: flex;
     margin: 0 -5px;
     flex-direction: row;
+    flex-wrap: wrap;
     background-color: #eeeeee;
-    justify-content: space-between;
+    justify-content: space-around;
+    align-items: center;
     padding: 6px;
+    height: auto;
+    box-sizing: content-box;
 }
 
 .card {
     display: flex;
-    /* flex: 1 1 auto; */
-    margin: 0 5px;
-    position: relative;
     flex-direction: column;
     justify-content: space-between;
-    width: 150px;
-    height: 200px;
     background-color: white;
     border-radius: 2px;
 }
+
+.card-ctg {
+    width: 150px;
+    height: 200px;
+}
+
+.card-good {
+    width: 200px;
+    margin-top: 20px;
+}
+
+/*.card:not(:first-child) {*/
+/*    margin-left: 25px;*/
+/*}*/
 
 .big-number {
     display: flex;
@@ -28,12 +41,17 @@
     font-size: 60pt;
 }
 
+.card-good .big-number > img {
+    width: 100%;
+    height: auto;
+}
+
 .card-three .big-number {
     background-color: #269f5d;
     color: white;
 }
 
-.card-one .big-number{
+.card-one .big-number {
     background-color: #65c2dc;
     color: #333333;
 }
@@ -74,4 +92,48 @@
     left: 80%;
 
     box-shadow: 0 0 1px 0 #bebebe;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn-back {
+    display: inline-block;
+    background: #8C959D;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    border-radius: 3px;
+}
+
+.page-nav {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.page-nav__item {
+    width: 40px;
+    height: 40px;
+    margin: 0 3px;
+
+    color: #333;
+    text-align: center;
+    text-decoration: none;
+    line-height: 40px;
+
+    background-color: #ddd;
+}
+
+.page-nav__item:hover {
+    background-color: #ccc;
+}
+
+.page-nav__item.active {
+    background-color: #d10953;
+    color: #fff;
 }
