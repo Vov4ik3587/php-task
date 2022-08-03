@@ -1,10 +1,9 @@
 <?php
 
 // Переменные из url
-$cat_id = $_GET["cat_id"];
-$id = $_GET["id"];
-$page = $_GET["pg"];
-
+$cat_id = $_GET["cat_id"] ?? null;
+$id = $_GET["id"] ?? null;
+$page = $_GET["pg"] ?? 1;
 // Запрос для проверки соответствия товара его категории
 $check = $pdo->prepare('
     SELECT *
@@ -50,7 +49,7 @@ if (is_null($id) && is_null($cat_id)) { ?>
             <?php }
         } ?>
     </div>
-<?php } elseif ($cat_id && $page && is_null($id)) {
+<?php } elseif ($cat_id && is_null($id)) {
     $stmt = $pdo->prepare('
         SELECT s.name_section, s_parent.name_section AS parent_section,
         (SELECT COUNT(*) 
@@ -73,7 +72,7 @@ if (is_null($id) && is_null($cat_id)) { ?>
         <?php } else { ?>
             <h1><?php echo $row['parent_section'] . "->" . $row['name_section']; ?></h1>
         <?php } ?>
-        <a href="http://localhost">
+        <a href="./">
             <button class="btn-back">Назад</button>
         </a>
     </div>
@@ -82,7 +81,7 @@ if (is_null($id) && is_null($cat_id)) { ?>
     // Достаем товары из категории
     $stmt = $pdo->prepare('
         SELECT goods.name_good,
-               goods.id_good,
+            goods.id_good,
 	        picture.path_picture AS path, 
             picture.attribute_alt AS alt
         FROM goods
@@ -124,7 +123,7 @@ if (is_null($id) && is_null($cat_id)) { ?>
     </nav>
 
 
-<?php } elseif ($ok_or_not && $id && is_null($page)) {
+<?php } elseif ($ok_or_not && $id) {
     // Достаем информацию товара
     $stmt = $pdo->prepare('
         SELECT
@@ -182,11 +181,11 @@ if (is_null($id) && is_null($cat_id)) { ?>
                 <div class="header">
                     <div class="product__title"><?php echo $row['name'] ?></div>
                     <?php if (is_null($cat_id)) { ?>
-                        <a href="http://localhost/?cat_id=<?php echo $row['id_main_section'] ?>&pg=1">
+                        <a href="?cat_id=<?php echo $row['id_main_section'] ?>&pg=1">
                             <button class="btn-back">Назад</button>
                         </a>
                     <?php } else { ?>
-                        <a href="http://localhost/?cat_id=<?php echo $cat_id ?>&pg=1">
+                        <a href="?cat_id=<?php echo $cat_id ?>&pg=1">
                             <button class="btn-back">Назад</button>
                         </a>
                     <?php } ?>
