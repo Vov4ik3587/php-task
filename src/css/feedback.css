@@ -1,0 +1,31 @@
+body {
+    background-color: #c1b3b3;
+    max-width: 1024px;
+}
+
+.block-form {
+    width: 400px;
+    height: auto;
+
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+
+    position: relative;
+    left: 50%;
+    margin-top: 100px;
+    padding-top: 20px;
+
+    background-color: white;
+}
+
+.block-form__title {
+    font-size: larger;
+}
+
+.block-form__name {
+    margin-top: 10px;
+}
