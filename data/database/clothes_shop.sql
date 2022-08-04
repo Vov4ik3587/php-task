@@ -2,10 +2,10 @@
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Хост: localhost
--- Время создания: Авг 03 2022 г., 03:38
--- Версия сервера: 10.4.24-MariaDB
--- Версия PHP: 8.1.5
+-- Host: localhost
+-- Generation Time: Aug 04, 2022 at 11:32 AM
+-- Server version: 10.4.24-MariaDB
+-- PHP Version: 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- База данных: `clothes_shop`
+-- Database: `clothes_shop`
 --
 CREATE DATABASE IF NOT EXISTS `clothes_shop` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `clothes_shop`;
@@ -26,7 +26,23 @@ USE `clothes_shop`;
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `goods`
+-- Table structure for table `feedback`
+--
+
+CREATE TABLE `feedback` (
+  `id_appeal` int(10) NOT NULL COMMENT 'идентификатор записи',
+  `name` varchar(25) NOT NULL COMMENT 'имя отправителя',
+  `email` varchar(40) NOT NULL COMMENT 'почта отправителя',
+  `date` date NOT NULL COMMENT 'дата рождения',
+  `sex` varchar(5) NOT NULL COMMENT 'пол',
+  `theme` varchar(50) NOT NULL COMMENT 'тема обращения',
+  `text` text NOT NULL COMMENT 'текст обращения'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `goods`
 --
 
 CREATE TABLE `goods` (
@@ -42,7 +58,7 @@ CREATE TABLE `goods` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='таблица характеристик товара';
 
 --
--- Дамп данных таблицы `goods`
+-- Dumping data for table `goods`
 --
 
 INSERT INTO `goods` (`id_good`, `name_good`, `id_main_picture`, `id_main_section`, `price_discount`, `price`, `price_promo`, `description_good`, `availability`) VALUES
@@ -68,7 +84,7 @@ INSERT INTO `goods` (`id_good`, `name_good`, `id_main_picture`, `id_main_section
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `good_picture`
+-- Table structure for table `good_picture`
 --
 
 CREATE TABLE `good_picture` (
@@ -78,7 +94,7 @@ CREATE TABLE `good_picture` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Дамп данных таблицы `good_picture`
+-- Dumping data for table `good_picture`
 --
 
 INSERT INTO `good_picture` (`ID`, `id_good`, `id_picture`) VALUES
@@ -138,7 +154,7 @@ INSERT INTO `good_picture` (`ID`, `id_good`, `id_picture`) VALUES
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `picture`
+-- Table structure for table `picture`
 --
 
 CREATE TABLE `picture` (
@@ -148,7 +164,7 @@ CREATE TABLE `picture` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='таблица картинок';
 
 --
--- Дамп данных таблицы `picture`
+-- Dumping data for table `picture`
 --
 
 INSERT INTO `picture` (`id_picture`, `path_picture`, `attribute_alt`) VALUES
@@ -162,7 +178,7 @@ INSERT INTO `picture` (`id_picture`, `path_picture`, `attribute_alt`) VALUES
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `sections`
+-- Table structure for table `sections`
 --
 
 CREATE TABLE `sections` (
@@ -173,7 +189,7 @@ CREATE TABLE `sections` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Дамп данных таблицы `sections`
+-- Dumping data for table `sections`
 --
 
 INSERT INTO `sections` (`id_section`, `name_section`, `description`, `id_parent_section`) VALUES
@@ -187,7 +203,7 @@ INSERT INTO `sections` (`id_section`, `name_section`, `description`, `id_parent_
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `section_good`
+-- Table structure for table `section_good`
 --
 
 CREATE TABLE `section_good` (
@@ -197,7 +213,7 @@ CREATE TABLE `section_good` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Дамп данных таблицы `section_good`
+-- Dumping data for table `section_good`
 --
 
 INSERT INTO `section_good` (`ID`, `id_section`, `id_good`) VALUES
@@ -239,11 +255,17 @@ INSERT INTO `section_good` (`ID`, `id_section`, `id_good`) VALUES
 (37, 3, 18);
 
 --
--- Индексы сохранённых таблиц
+-- Indexes for dumped tables
 --
 
 --
--- Индексы таблицы `goods`
+-- Indexes for table `feedback`
+--
+ALTER TABLE `feedback`
+  ADD PRIMARY KEY (`id_appeal`);
+
+--
+-- Indexes for table `goods`
 --
 ALTER TABLE `goods`
   ADD PRIMARY KEY (`id_good`),
@@ -251,7 +273,7 @@ ALTER TABLE `goods`
   ADD KEY `id_main_section` (`id_main_section`);
 
 --
--- Индексы таблицы `good_picture`
+-- Indexes for table `good_picture`
 --
 ALTER TABLE `good_picture`
   ADD PRIMARY KEY (`ID`),
@@ -259,13 +281,13 @@ ALTER TABLE `good_picture`
   ADD KEY `id_picture` (`id_picture`);
 
 --
--- Индексы таблицы `picture`
+-- Indexes for table `picture`
 --
 ALTER TABLE `picture`
   ADD PRIMARY KEY (`id_picture`);
 
 --
--- Индексы таблицы `sections`
+-- Indexes for table `sections`
 --
 ALTER TABLE `sections`
   ADD PRIMARY KEY (`id_section`),
@@ -273,7 +295,7 @@ ALTER TABLE `sections`
   ADD KEY `id_section` (`id_section`);
 
 --
--- Индексы таблицы `section_good`
+-- Indexes for table `section_good`
 --
 ALTER TABLE `section_good`
   ADD PRIMARY KEY (`ID`),
@@ -281,59 +303,65 @@ ALTER TABLE `section_good`
   ADD KEY `id_section` (`id_section`);
 
 --
--- AUTO_INCREMENT для сохранённых таблиц
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT для таблицы `goods`
+-- AUTO_INCREMENT for table `feedback`
+--
+ALTER TABLE `feedback`
+  MODIFY `id_appeal` int(10) NOT NULL AUTO_INCREMENT COMMENT 'идентификатор записи', AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT for table `goods`
 --
 ALTER TABLE `goods`
   MODIFY `id_good` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'идентификатор товара', AUTO_INCREMENT=19;
 
 --
--- AUTO_INCREMENT для таблицы `good_picture`
+-- AUTO_INCREMENT for table `good_picture`
 --
 ALTER TABLE `good_picture`
   MODIFY `ID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
--- AUTO_INCREMENT для таблицы `picture`
+-- AUTO_INCREMENT for table `picture`
 --
 ALTER TABLE `picture`
   MODIFY `id_picture` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'идентификатор картинки', AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT для таблицы `sections`
+-- AUTO_INCREMENT for table `sections`
 --
 ALTER TABLE `sections`
   MODIFY `id_section` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'идентификатор раздела', AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT для таблицы `section_good`
+-- AUTO_INCREMENT for table `section_good`
 --
 ALTER TABLE `section_good`
   MODIFY `ID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
--- Ограничения внешнего ключа сохраненных таблиц
+-- Constraints for dumped tables
 --
 
 --
--- Ограничения внешнего ключа таблицы `goods`
+-- Constraints for table `goods`
 --
 ALTER TABLE `goods`
   ADD CONSTRAINT `goods_ibfk_1` FOREIGN KEY (`id_main_picture`) REFERENCES `picture` (`id_picture`),
   ADD CONSTRAINT `goods_ibfk_2` FOREIGN KEY (`id_main_section`) REFERENCES `sections` (`id_section`);
 
 --
--- Ограничения внешнего ключа таблицы `good_picture`
+-- Constraints for table `good_picture`
 --
 ALTER TABLE `good_picture`
   ADD CONSTRAINT `good_picture_ibfk_1` FOREIGN KEY (`id_good`) REFERENCES `goods` (`id_good`),
   ADD CONSTRAINT `good_picture_ibfk_2` FOREIGN KEY (`id_picture`) REFERENCES `picture` (`id_picture`);
 
 --
--- Ограничения внешнего ключа таблицы `section_good`
+-- Constraints for table `section_good`
 --
 ALTER TABLE `section_good`
   ADD CONSTRAINT `section_good_ibfk_1` FOREIGN KEY (`id_good`) REFERENCES `goods` (`id_good`),
